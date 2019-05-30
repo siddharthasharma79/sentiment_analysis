@@ -1,7 +1,11 @@
-a {
+/* a {
     text-decoration: none;
     font-family: "Source Sans Pro", sans-serif;
 }
-a:hover {
-  color: red;
+body {
+  font-family: "Courier New";
+} */
+
+p {
+  font-family: "Courier New";
 }

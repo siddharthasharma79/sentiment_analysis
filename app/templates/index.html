@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Saurabh's portfolio</title>
+    <title>Sentiment analysis</title>
      <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-<a href="https://gsaurabh98.github.io/" title=
-        "Click here to navigate Saurabh's portfolio"
-><strong>Portfolio
-</strong></a>
-
-<! -- first form -->
-<input type="hidden" name="form_name" value="text_entry_form">
+<div>
+        <form action="/predict" method='POST'>
+                <textarea name="sentiment" id="sentiment" cols="40" rows="5" placeholder="type something"></textarea>
+                <button title="click here to predict" type="submit" name="predict">Predict</button>
+        </form>
+        <p>{{message}}</p>
+</div>
 </body>
 </html>
