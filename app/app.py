@@ -9,11 +9,13 @@ logger = logging.getLogger('Sentiment Analysis')
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/predict', methods = ['POST'])
+
+@app.route('/predict', methods=['POST'])
 def prediction():
     text = request.form['sentiment']
     response = Sentiment().prediction(text)
