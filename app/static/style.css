@@ -1,44 +1,53 @@
 /* a {
-    text-decoration: none;
-    font-family: "Source Sans Pro", sans-serif;
+  text-decoration: none;
+  font-family: "Source Sans Pro", sans-serif;
 }
+*/
 body {
   font-family: "Courier New";
-} */
-
-p {
-  font-family: "Courier New";
 }
-
-	.form {
-		margin: 0 auto;
-		width: 210px;
-		margin-top:210px
-	}
-	.form label{
-		display: inline-block;
-		text-align: right;
-		float: left;
-	}
-	.form input{
-		display: inline-block;
-		text-align: left;
-		float: right;
-	}
+.form {
+  margin: 0 auto;
+  width: 210px;
+  margin-top:210px;
+  margin-left: 500px;
+}
+.form label{
+  display: inline-block;
+  text-align: right;
+  float: left;
+}
+.form input{
+  display: inline-block;
+  text-align: left;
+  float: right;
+}
 .button {
-  background-color: #008CBA; /* Green */
+  background-color: #008CBA;
   border: none;
   color: white;
-  padding: 8px 20px;
+  padding: 8px 18px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   cursor: pointer;
+  font-family: inherit;
 }
 .button:hover {
   background-color: #555555;
   color: white;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #555555;
+  color: white;
+  text-align: center;
+}
+p {
+  font-size:12px
 }
