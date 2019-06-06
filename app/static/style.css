@@ -9,3 +9,36 @@ body {
 p {
   font-family: "Courier New";
 }
+
+	.form {
+		margin: 0 auto;
+		width: 210px;
+		margin-top:210px
+	}
+	.form label{
+		display: inline-block;
+		text-align: right;
+		float: left;
+	}
+	.form input{
+		display: inline-block;
+		text-align: left;
+		float: right;
+	}
+.button {
+  background-color: #008CBA; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #555555;
+  color: white;
+}

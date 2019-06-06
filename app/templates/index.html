@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <title>Sentiment analysis</title>
      <link rel="stylesheet" href="static/style.css">
+
 </head>
 <body>
 <div>
+
+<div class="form">
+
         <form action="/predict" method='POST'>
-                <textarea name="sentiment" id="sentiment" cols="40" rows="5" placeholder="type something"></textarea>
-                <button title="click here to predict" type="submit" name="predict">Predict</button>
+                <textarea name="sentiment" id="sentiment" cols="40" rows="5"
+                          placeholder="Please write sentence to predict the sentiment."></textarea>
+                <button title="click here to predict" class="button"
+                        type="submit" name="predict">Predict</button>
         </form>
         <p>{{message}}</p>
 </div>
