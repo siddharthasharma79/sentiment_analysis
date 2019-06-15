@@ -1,11 +1,13 @@
+import logging
+import os
+
 from flask import Flask
 from flask import render_template
-import os
 from flask import request
-import logging
-from modules.classification import Sentiment
 
-logger = logging.getLogger('Sentiment Analysis')
+from modules.sentiment import Sentiment
+
+logger = logging.getLogger('Preprocess Analysis')
 
 app = Flask(__name__)
 
@@ -18,7 +20,7 @@ def index():
 @app.route('/predict', methods=['POST'])
 def prediction():
     text = request.form['sentiment']
-    response = Sentiment().prediction(text)
+    response = Sentiment().check_sentiment(text)
     return render_template('index.html', message=response)
 
 

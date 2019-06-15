@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Sentiment analysis</title>
-     <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/style.css">
 
 </head>
 <body>
 
 <div class="form">
 
-        <form action="/predict" method='POST'>
-            <h3>Sentiment Analysis</h3>
-                <textarea name="sentiment" id="sentiment" cols="40" rows="5"
-                          placeholder="Please write sentence to predict the sentiment."></textarea>
-                <button title="click here to predict" class="button"
-                        type="submit" name="predict">Predict</button>
-        </form>
-        <p>{{message}}</p>
+    <form action="/predict" method='POST'>
+        <h3>Sentiment Analysis</h3>
+        <textarea name="sentiment" id="sentiment" cols="40" rows="5"
+                  placeholder="Please write sentence to predict the sentiment."></textarea>
+        <button title="click here to predict" class="button"
+                type="submit" name="predict">Predict
+        </button>
+    </form>
+    <p>{{message}}</p>
 </div>
 </body>
-<footer class="footer"><p>&copy; Copyright 2019, All Rights Reserved</p></footer>
+<footer class="footer"><p>&copy; Copyright 2019, All Rights Reserved</p>
+</footer>
 </html>
