@@ -7,15 +7,12 @@ Author: saurabh
 import re
 import string
 
-import nltk
-import enchant
 from contractions import contractions_dict
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import word_tokenize
-from pattern.en import suggest
 from textblob import TextBlob
 
 
@@ -57,16 +54,12 @@ class Sentiment:
             else:
                 return new_word
 
-    def spelling_checker(self, word):
-        checker = suggest(word)
-        return checker[0][0]
-
     def text_processing(self, input_data):
         # setting to lower
         input_data = input_data.lower()
 
         # Removing small words
-        words = ' '.join(word for word in input_data.split() if len(word)>3)
+        words = ' '.join(word for word in input_data.split() if len(word) > 3)
 
         # removing urls from text
         # http matches literal characters
@@ -110,17 +103,9 @@ class Sentiment:
         without_repeated_chars = [self.remove_repeated_characters(s) for s in
                                   output]
 
-        # d = enchant.Dict("en_US")
-        # new_word = [" ".join(w for w in without_repeated_chars if d.check(w))]
-
-        # correcting the spellings
-        # output = [self.spelling_checker(s.lower()) for s in without_repeated_chars]
-
         # correcting the spelling of text
-        correct_spelling_text = [str(TextBlob(words).correct()) for words in without_repeated_chars]
-
-
-
+        correct_spelling_text = [str(TextBlob(words).correct()) for words in
+                                 without_repeated_chars]
 
         clean_text = ' '.join(correct_spelling_text)
         return clean_text
