@@ -7,6 +7,8 @@ Author: saurabh
 import re
 import string
 
+import nltk
+import enchant
 from contractions import contractions_dict
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet
@@ -14,6 +16,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import word_tokenize
 from pattern.en import suggest
+from textblob import TextBlob
 
 
 class Sentiment:
@@ -30,24 +33,24 @@ class Sentiment:
 
     def expand_contractions(self, text):
         pattern = re.compile(
-            "({})".format( "|".join( contractions_dict.keys() ) ),
-            flags=re.DOTALL | re.IGNORECASE )
+            "({})".format("|".join(contractions_dict.keys())),
+            flags=re.DOTALL | re.IGNORECASE)
 
         def replace_text(t):
-            txt = t.group( 0 )
+            txt = t.group(0)
             if txt.lower() in contractions_dict.keys():
                 return contractions_dict[txt.lower()]
 
-        expand_text = pattern.sub( replace_text, text )
+        expand_text = pattern.sub(replace_text, text)
         return expand_text
 
     def remove_repeated_characters(self, word):
-        pattern = re.compile( r"(\w*)(\w)\2(\w*)" )
+        pattern = re.compile(r"(\w*)(\w)\2(\w*)")
         substitution_pattern = r"\1\2\3"
         while True:
-            if wordnet.synsets( word ):
+            if wordnet.synsets(word):
                 return word
-            new_word = pattern.sub( substitution_pattern, word )
+            new_word = pattern.sub(substitution_pattern, word)
             if new_word != word:
                 word = new_word
                 continue
@@ -55,37 +58,40 @@ class Sentiment:
                 return new_word
 
     def spelling_checker(self, word):
-        checker = suggest( word )
+        checker = suggest(word)
         return checker[0][0]
 
     def text_processing(self, input_data):
         # setting to lower
         input_data = input_data.lower()
 
+        # Removing small words
+        words = ' '.join(word for word in input_data.split() if len(word)>3)
+
         # removing urls from text
         # http matches literal characters
         # \S+ matches all non-whitespace characters (the end of the url)
         # we replace with the empty string
-        input_data = re.sub( r"http\S+", "", input_data )
+        input_data = re.sub(r"http\S+", "", words)
 
         # Fixes contractions such as `you're` to you `are`
-        expanded_text = self.expand_contractions( input_data )
+        expanded_text = self.expand_contractions(input_data)
 
         # White spaces removal
         input_str = expanded_text.strip()
 
         # removing numbers
-        number_free_text = re.sub( r'\d+', '', input_str )
+        number_free_text = re.sub(r'\d+', '', input_str)
 
         # Punctuation removal
         punctuation_free_text = number_free_text.translate(
-            str.maketrans( '', '', string.punctuation ) )
+            str.maketrans('', '', string.punctuation))
 
         # converting sentence into tokens
-        tokens = word_tokenize( punctuation_free_text )
+        tokens = word_tokenize(punctuation_free_text)
 
         # removing stop words
-        stop_words = set( stopwords.words( 'english' ) )
+        stop_words = set(stopwords.words('english'))
 
         nostopwods = [word for word in tokens if not word in stop_words]
 
@@ -94,23 +100,32 @@ class Sentiment:
 
         # Now just remove along with stemming words
         ps = PorterStemmer()
-        nostemwords = [ps.stem( lemmatizer.lemmatize( word ) ) for word in
+        nostemwords = [ps.stem(lemmatizer.lemmatize(word)) for word in
                        nostopwods]
 
         # keeping same order of text
-        output = sorted( set( nostemwords ), key=nostemwords.index )
+        output = sorted(set(nostemwords), key=nostemwords.index)
 
         # removing repeated words
-        without_repeated_chars = [self.remove_repeated_characters( s ) for s in
+        without_repeated_chars = [self.remove_repeated_characters(s) for s in
                                   output]
+
+        # d = enchant.Dict("en_US")
+        # new_word = [" ".join(w for w in without_repeated_chars if d.check(w))]
 
         # correcting the spellings
         # output = [self.spelling_checker(s.lower()) for s in without_repeated_chars]
 
-        clean_text = ' '.join( without_repeated_chars )
+        # correcting the spelling of text
+        correct_spelling_text = [str(TextBlob(words).correct()) for words in without_repeated_chars]
+
+
+
+
+        clean_text = ' '.join(correct_spelling_text)
         return clean_text
 
     def prediction(self, text_data):
 
-        clean_text = self.text_processing( text_data )
+        clean_text = self.text_processing(text_data)
         return clean_text
