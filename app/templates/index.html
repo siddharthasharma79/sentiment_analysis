@@ -18,7 +18,13 @@
                 type="submit" name="predict">Predict
         </button>
     </form>
-    <p>{{message}}</p>
+    {%if message == 'Positive' %}
+    <p class="positive-response" >{{message}}</p>
+    {%elif message == 'Negative'%}
+    <p class="negative-response">{{message}}</p>
+    {%else%}
+    <p class="neutral-response">{{message}}</p>
+    {% endif %}
 </div>
 </body>
 <footer class="footer"><p>&copy; Copyright 2019, All Rights Reserved</p>
