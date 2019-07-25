@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Sentiment analysis</title>
-    <link rel="stylesheet" href="static/style.css">
-
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sentiment analysis</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 </head>
 <body>
-
-<div class="form">
-
-    <form action="/predict" method='POST'>
-        <h3>Sentiment Analysis</h3>
-        <textarea name="sentiment" id="sentiment" cols="40" rows="5"
-                  placeholder="Please write sentence to predict the sentiment."></textarea>
-        <button title="click here to predict" class="button"
-                type="submit" name="predict">Predict
-        </button>
-    </form>
-    {%if message == 'Positive' %}
-    <p class="positive-response" >{{message}}</p>
-    {%elif message == 'Negative'%}
-    <p class="negative-response">{{message}}</p>
-    {%else%}
-    <p class="neutral-response">{{message}}</p>
-    {% endif %}
-</div>
+        <div class="form">
+			<div id="content" >
+				<form action="/predict" method='POST'>
+					<h2>Sentiment Analysis</h2>
+					<textarea name="sentiment" id="sentiment" cols="40" rows="5"
+								placeholder="Please write sentence to predict the sentiment."></textarea><br/><br>
+					<button title="click here to predict" class="button" type="submit" name="predict">
+						Predict
+					</button>
+				</form>
+			</div>
+        {%if message == 'Positive' %}
+        <p class="positive-response" >{{message}}</p>
+        {%elif message == 'Negative'%}
+        <p class="negative-response">{{message}}</p>
+        {%else%}
+        <p class="neutral-response">{{message}}</p>
+		{% endif %}
+		</div>
+	<footer class="footer"><p>&copy; Copyright 2019, All Rights Reserved</p></footer>		
 </body>
-<footer class="footer"><p>&copy; Copyright 2019, All Rights Reserved</p>
-</footer>
 </html>
